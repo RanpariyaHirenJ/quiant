@@ -5,6 +5,14 @@ ErrorDocument 500 http://www.quiant.ai/404.html
 Options +FollowSymLinks
 RewriteEngine On
 
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} ^(www\.)?quiant\.ai$
+RewriteRule (.*) https://www.quiant.ai/$1 [R=301,L]
+
+RewriteCond %{HTTPS} on
+RewriteCond %{HTTP_HOST} ^quiant\.ai$
+RewriteRule (.*) https://www.quiant.ai/$1 [R=301,L]
+
 # Hiren cached static assets for one month
 <filesMatch ".(css|jpg|jpeg|png|gif|js|ico)$">
 Header set Cache-Control "max-age=2628000, public"
@@ -38,11 +46,3 @@ Header set Cache-Control "max-age=2628000, public"
   BrowserMatch ^Mozilla/4\.0[678] no-gzip
   BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
 </IfModule>
-
-RewriteCond %{HTTPS} off
-RewriteCond %{HTTP_HOST} ^(www\.)?quiant\.ai$
-RewriteRule (.*) https://www.quiant.ai/$1 [R=301,L]
-
-RewriteCond %{HTTPS} on
-RewriteCond %{HTTP_HOST} ^quiant\.ai$
-RewriteRule (.*) https://www.quiant.ai/$1 [R=301,L]
