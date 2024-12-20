@@ -5,6 +5,7 @@ ErrorDocument 500 http://www.quiant.ai/404.html
 Options +FollowSymLinks
 RewriteEngine On
 
+RewriteCond %{HTTPS} on
 RewriteCond %{HTTP_HOST} ^(www\.)?quiant\.ai$
 RewriteRule (.*) https://www.quiant.ai/$1 [R=301,L]
 
